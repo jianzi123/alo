@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int quickSort(vector<int> nums, int left, int right){
+    if(left >= right){
+        return 0;
+    }
+    int lleft = left, rright = right, tmp = nums[left];
+    while(lleft < rright){
+        while(lleft < rright && nums[rright] > tmp){
+            rright--;
+        }
+        if(lleft < rright){
+            nums[lleft++] = nums[rright];
+        }
+
+        while(lleft < rright && nums[lleft] < tmp)lleft++;
+        if(lleft < rright){
+            nums[rright--] = nums[lleft];
+        }
+
+    }
+    nums[lleft] = tmp;
+    cout << "nums size:" << nums.size() << endl;
+    vector<int>::iterator item;
+    for(item = nums.begin(); item != nums.end(); item++){
+        cout << *item << "-"  << endl;
+    }
+    quickSort(nums, left, lleft -1);
+    quickSort(nums, lleft + 1, right);
+    return 0;
+}
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+
+    vector<int> src = vector<int>{1,2,3,4,1231,3};
+
+    quickSort(src, 0, src.size() - 1);
+    vector<int>::iterator item;
+    for(item = src.begin(); item != src.end(); item++){
+        cout << *item << "-"  << endl;
+    }
+    return 0;
+}
